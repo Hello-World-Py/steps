@@ -23,6 +23,14 @@ STEPS is a simulation toolkit for powerflow and dynamic simulation of large-scal
 
 ## Realse Note
 
+- 1.1.0. Apr. 22, 2020. Add new API: get_(lines/transformers/hvdcs)_between_lines(), set_(generator/wt_generator/pv_unit/energy_storage/load/hvdc)_power(), and is_system_angular_stable().  STEPS kernel version should be >=1.3.
+- 1.0.0. Apr. 22, 2020. Add new API: clear_meters() to clear all meters for dynamic simulation. STEPS kernel version should be >=1.2.
+- 0.13.0-alpha. Mar.  9, 2020. Add new APIs: change_bus_number() and change_bus_number_with_file(). get_areas(), get_zones(), and get_owners() are marked as deprecated. STEPS kernel version should be >=1.1.1.
+- 0.12.0. Feb.  8, 2020. Add new APIs: check_dynamic_least_time_constants(). Recover the save_powerflow_data() API of v0.9.0.
+- 0.11.5. Jan. 20, 2020. Add new APIs: set/get_dynamic_model_database_capacity().
+- 0.11.4. Jan.  2, 2020. Fix bug of c_unit in pylibsteps.py. 
+- 0.11.3. Dec. 27, 2019. Add API to set toolkit log file: set_toolkit_log_file(log_file, log_file_append_mode). This version has fatal bug. DONOT use it. Use new version instead.
+- 0.11.2. Dec. 19, 2019. Update 'is' to '==' when comparing string in stepspy.py.
 - 0.11.1. Dec. 18, 2019. Add POUCH_CSV and POUCH_STEPS to stepspy for loading dynamic simulation result.
 - 0.11.0. Nov. 18, 2019. Modify API of building and saving network matix. Add new API to build and save Z matrix. Not compatible with previous STEPS.
 - 0.10.2. Nov. 13, 2019. Add new API get/set_hvdc_power_order_in_MW() for changing HVDC power order in dynamic simulation.
@@ -54,6 +62,12 @@ To install stepspy, you can run the following codes on your computer or server:
 python -m pip install stepspy
 ```
 
+To update stepspy, you can run the following codes on your computer or server:
+
+```python
+python -m pip install --upgrade stepspy
+```
+
 If you want to manually install stepspy, follow the instructions:
 
 1. Go to https://github.com/changgang/steps to download or fork the latest version of STEPS.
@@ -68,8 +82,8 @@ After install the stepspy, you still need to compile and install the dynamic lib
 3, Move the dynamic library of STEPS to stepspy/libsteps/ in the PYTHONPATH/Lib/site-packages/.
 4, If the VC runtime is missing, download and install Microsoft Visual C++ 2017 Redistributable of 32 or 64 bit version.
 5, If VC runtime or Mingw Runtime is missing, install vcredit or copy libwinpthread-1.dll from mingw compiler/bin/ to c:/windows/system32 and c:/windows/SysWOW64
+6, For Windows platform, Python 3.7 and 3.8 may suffer path searching problem for some unknown reason. In this case, copy all dlls in the mingw/bin folder to the same folder of libsteps.dll.
 
-Follow README of STEPS if you want to use both serial and parallel library.
 
 ## Usage
 

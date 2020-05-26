@@ -2,8 +2,8 @@ from ctypes import *
 import platform
 import os
 
-libsteps_version = "0.11.0"
-libsteps_date = "2019/11/18"
+libsteps_version = "0.12.0"
+libsteps_date = "2020/4/22"
 
 def get_base_library():
     dirname, filename = os.path.split(os.path.abspath(__file__))
@@ -36,9 +36,12 @@ def load_library():
     else:
         return None
 
-    libsteps.api_set_default_toolkit_log_file.restype = None
-    libsteps.api_set_default_toolkit_log_file.argtype = (c_char_p, )
+    libsteps.api_get_const_INDEX_NOT_EXIST.restype = c_uint
+    libsteps.api_get_const_INDEX_NOT_EXIST.argtype = None
     
+    libsteps.api_set_toolkit_log_file.restype = None
+    libsteps.api_set_toolkit_log_file.argtypes = (c_char_p, c_bool, c_uint)
+        
     libsteps.api_generate_new_toolkit.restype = c_uint
     libsteps.api_generate_new_toolkit.argtypes = None
     
@@ -55,7 +58,13 @@ def load_library():
     libsteps.api_set_toolkit_parallel_thread_number.argtypes = (c_uint, c_uint)
     
     libsteps.api_get_toolkit_parallel_thread_number.restype = c_uint
-    libsteps.api_get_toolkit_parallel_thread_number.argtypes = (c_uint, )
+    libsteps.api_get_toolkit_parallel_thread_number.argtypes = (c_uint, )   
+    
+    libsteps.api_set_toolkit_dynamic_model_database_capacity.restype = None
+    libsteps.api_set_toolkit_dynamic_model_database_capacity.argtypes = (c_uint, c_uint)
+    
+    libsteps.api_get_toolkit_dynamic_model_database_capacity.restype = c_uint
+    libsteps.api_get_toolkit_dynamic_model_database_capacity.argtypes = (c_uint, )    
     
     libsteps.api_get_toolkit_float_data.restype = c_double
     libsteps.api_get_toolkit_float_data.argtypes = (c_char_p, c_uint)
@@ -95,6 +104,9 @@ def load_library():
     
     libsteps.api_check_missing_models.restype = None
     libsteps.api_check_missing_models.argtypes = (c_uint, )
+    
+    libsteps.api_check_least_dynamic_time_constants.restype = None
+    libsteps.api_check_least_dynamic_time_constants.argtypes = (c_uint, )
     
     libsteps.api_check_network_connectivity.restype = None
     libsteps.api_check_network_connectivity.argtypes = (c_bool, c_uint)
@@ -278,8 +290,12 @@ def load_library():
     libsteps.api_remove_zone.argtypes = (c_uint, c_uint)
     libsteps.api_remove_owner.restype = None
     libsteps.api_remove_owner.argtypes = (c_uint, c_uint)
-
-
+    
+    
+    libsteps.api_change_bus_number.restype = None
+    libsteps.api_change_bus_number.argtypes = (c_uint, c_uint, c_uint)    
+    libsteps.api_change_bus_number_with_file.restype = None
+    libsteps.api_change_bus_number_with_file.argtypes = (c_char_p, c_uint)
 
 
     libsteps.api_get_bus_integer_data.restype = (c_int)
@@ -580,6 +596,8 @@ def load_library():
     libsteps.api_show_dynamic_simulation_configuration.restype = None
     libsteps.api_show_dynamic_simulation_configuration.argtypes = (c_uint, )
 
+    libsteps.api_clear_meters.restype = None
+    libsteps.api_clear_meters.argtypes = (c_uint, )
     libsteps.api_prepare_meters.restype = None
     libsteps.api_prepare_meters.argtypes = (c_uint, )
     libsteps.api_prepare_bus_related_meters.restype = None
@@ -633,6 +651,8 @@ def load_library():
     libsteps.api_run_simulation_to_time.argtypes = (c_double, c_uint)
     libsteps.api_run_a_step.restype = None
     libsteps.api_run_a_step.argtypes = (c_uint, )
+    libsteps.api_get_system_angular_stable_flag.restype = c_bool
+    libsteps.api_get_system_angular_stable_flag.argtypes = (c_uint, )
 
     libsteps.api_set_bus_fault.restype = None
     libsteps.api_set_bus_fault.argtypes = (c_uint, c_char_p, c_double, c_double, c_uint)
@@ -667,6 +687,11 @@ def load_library():
     libsteps.api_trip_generator.argtypes = (c_uint, c_char_p, c_uint)
     libsteps.api_shed_generator.restype = None
     libsteps.api_shed_generator.argtypes = (c_uint, c_char_p, c_double, c_uint)
+
+    libsteps.api_trip_wt_generator.restype = None
+    libsteps.api_trip_wt_generator.argtypes = (c_uint, c_char_p, c_uint, c_uint)
+    libsteps.api_shed_wt_generator.restype = None
+    libsteps.api_shed_wt_generator.argtypes = (c_uint, c_char_p, c_double, c_uint)
 
     libsteps.api_trip_load.restype = None
     libsteps.api_trip_load.argtypes = (c_uint, c_char_p, c_uint)

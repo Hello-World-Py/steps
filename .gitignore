@@ -1,7 +1,10 @@
 build/
-test/
+bench_bak/
 python/*.pyc
 python/*.pyd
 python/*.xlsx
+python/*.txt
+python/*.tex
 code/*.layout
+doc/latex/
 .gitignore
